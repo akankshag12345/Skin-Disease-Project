@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skincare Recommendations - Skinnova</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="result.css">
+
+  <!-- JS -->
+  <script defer src="result-script.js"></script>
+</head>
+<body>
+
+  <!-- Particle Background -->
+  <canvas id="particleCanvas"></canvas>
+
+
+<div id="resultContent" style="display:none; text-align: center; background: rgba(255,255,255,0.9); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: 20px auto; max-width: 500px;">
+    <h2 id="predictionText" style="color: #ff0080; font-size: 2.5rem;">Analyzing...</h2>
+    <p id="confidenceText" style="font-size: 1.2rem; color: #010547; font-weight: 600;"></p>
+    <a href="infection.html" class="back-btn" style="margin-top: 20px;">Check Another Image</a>
+</div>
+
+
+
+ <section id="recommendation" class="recommendation-section">
+  <div class="recommendation-container">
+    <h2>Your Personalized Skincare Recommendations</h2>
+    <p>Here are your tips based on your questionnaire and AI analysis.</p>
+    
+    <div class="recommendation-grid">
+      <div class="recommendation-box">
+        <h3>🌱 Natural Remedies</h3>
+        <p id="naturalRemedyText">Loading...</p>
+      </div>
+      <div class="recommendation-box">
+        <h3>🧴 Ingredients Required</h3>
+        <p id="ingredientText">Loading...</p>
+      </div>
+      <div class="recommendation-box">
+        <h3>👨‍⚕️ Professional Advice</h3>
+        <p id="adviceText">Loading...</p>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-btn">Back to Home</a>
+  </div>
+</section>
+</body>
+</html>

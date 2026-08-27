@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capture Skin Image</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:#f5f5f5;
+  flex-direction:column;
+}
+video {
+  width:300px;
+  border-radius:15px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Capture Skin Image</h2>
+
+<video id="camera" autoplay playsinline></video>
+<br><br>
+
+<div class="btn-container">
+<button class="hero-btn ripple" onclick="startCamera()">
+  📷 Open Camera
+</button>
+
+
+<button class="hero-btn ripple" onclick="captureImage()">
+  Capture & Analyze
+</button>
+</div>
+
+<canvas id="snapshot" style="display:none;"></canvas>
+
+<script>
+// 📷 Auto open camera
+async function startCamera() {
+  const video = document.getElementById("camera");
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    video.srcObject = stream;
+  } catch (err) {
+    alert("Please allow camera permission!");
+  }
+}
+
+// 📸 Capture
+function captureImage() {
+  const video = document.getElementById("camera");
+  const canvas = document.getElementById("snapshot");
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(video, 0, 0);
+
+  canvas.toBlob(async (blob) => {
+    const formData = new FormData();
+    formData.append("image", blob, "capture.jpg");
+
+    try {
+      const res = await fetch("http://localhost:8000/predict", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        const aiResults = {
+          prediction: data.prediction,
+          confidence: data.confidence,
+          isDirectAI: true
+        };
+
+        localStorage.setItem("skincareAIResults", JSON.stringify(aiResults));
+
+        window.location.href = "result.html";
+      } else {
+        alert("Error: " + data.prediction);
+      }
+    } catch {
+      alert("Server error!");
+    }
+  });
+}
+</script>
+
+</body>
+</html>

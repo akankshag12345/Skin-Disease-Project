@@ -1,0 +1,414 @@
+/* ================== RESET & BASE ================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #f0f8ff;
+  color: #010547;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* ================== PARTICLE CANVAS ================== */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* ================== NAVBAR ================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(0, 204, 204, 0.9);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.nav-logo {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #010547;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  color: #010547;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+  background: linear-gradient(90deg, #ff0080, #ff8c00);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.nav-login {
+  background: linear-gradient(90deg, #ff0080, #ff8c00);
+  color: #fff;
+  font-weight: 600;
+}
+
+.nav-login:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 0, 128, 0.5);
+}
+
+/* ================== HERO SECTION ================== */
+.hero-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 140px 50px 100px;
+  gap: 50px;
+  perspective: 1000px;
+  opacity: 1; /* visible immediately */
+}
+
+
+.hero-content {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+
+
+.gradient-text {
+  font-size: 5rem;
+  background: linear-gradient(270deg, #ff0080, #ff8c00, #00cccc, #ff0080);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientAnimation 15s ease infinite;
+  text-shadow: 0 5px 20px rgba(255, 0, 128, 0.3);
+}
+
+@keyframes gradientAnimation {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  margin: 20px 0;
+  font-weight: 600;
+}
+
+.hero-btn {
+  padding: 15px 35px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #ff0080, #ff8c00);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 0, 128, 0.4);
+}
+
+/* RIPPLE EFFECT */
+.ripple:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform: scale(0);
+  opacity: 0;
+  border-radius: 50%;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.ripple:active:after {
+  transform: scale(4);
+  opacity: 1;
+  transition: 0s;
+}
+
+.hero-image {
+  flex: 1;
+  max-width: 900px;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 600%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  transition: all 0.9s ease;
+}
+
+.hero-image img:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* ================== SERVICES SECTION ================== */
+.services-section {
+  text-align: center;
+  padding: 80px 50px;
+  background: linear-gradient(120deg, #ff0080, #ff8c00, #00cccc, #ff0080);
+  background-size: 400% 400%;
+  animation: gradientAnimation 20s ease infinite;
+  border-radius: 20px;
+  color: #fff;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.services-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.services-section p.services-text {
+  font-family: 'Times New Roman', Times, serif; 
+  font-size: 2rem;
+  max-width: 90%;       
+  margin: 0 auto;       
+  padding: 10px 0;     
+  text-align: center;   
+  line-height: 1.6;     
+}
+
+
+/* ================== SOLUTIONS SECTION ================== */
+.solutions-section {
+  text-align: center;
+  padding: 80px 50px;
+}
+
+.solution-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.5s ease;
+  cursor: pointer;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.card img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  transition: all 0.5s ease;
+}
+
+.card span {
+  font-weight: 600;
+  font-size: 1.1rem;
+  background: linear-gradient(90deg, #ff0080, #ff8c00);
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.card:hover {
+  transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+  box-shadow: 0 20px 50px rgba(255,0,128,0.3);
+}
+
+/* ================== QUOTE ================== */
+.quote-section {
+  text-align: center;
+  padding: 50px;
+  font-size: 2rem;
+  font-style: italic;
+  color: #010547;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: 50px;
+}
+
+/* ================== CONTACT ================== */
+.contact-section {
+  text-align: center;
+  padding: 80px 50px;
+  background: #f0f0f0;
+  border-radius: 25px;
+}
+
+.contact-form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #ff0080;
+  box-shadow: 0 0 10px rgba(255,0,128,0.3);
+  outline: none;
+}
+
+.contact-form button {
+  padding: 15px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #ff0080, #ff8c00);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-form button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(255,0,128,0.4);
+}
+
+/* ================== FOOTER ================== */
+.footer {
+  text-align: center;
+  padding: 50px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: 50px;
+}
+
+.footer h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.footer p {
+  font-size: 1rem;
+}
+
+/* ================== SCROLL REVEAL ================== */
+.reveal {
+  opacity: 1; /* visible on load */
+  transform: translateY(0);
+  transition: all 1s ease;
+}
+
+/* ================== RESPONSIVE ================== */
+@media(max-width: 1024px) {
+  .hero-section { flex-direction: column; padding: 100px 30px; }
+  .gradient-text { font-size: 4rem; }
+  .hero-image img { height: 250px; }
+  .solution-cards { flex-direction: column; gap: 20px; }
+}
+
+@media(max-width: 768px) {
+  .navbar { padding: 10px 20px; }
+  .gradient-text { font-size: 3rem; }
+  .services-section h2 { font-size: 2rem; }
+  .services-section p { font-size: 1rem; }
+  .card img { width: 150px; height: 150px; }
+}
+
+@media(max-width: 480px) {
+  .hero-btn { padding: 12px 25px; font-size: 0.9rem; }
+  .hero-image img { height: 200px; }
+  .solution-cards { gap: 15px; }
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;   /* center horizontally */
+    gap: 20px;                 /* space between buttons */
+    margin-top: 30px;
+}
+
+.hero-btn {
+    padding: 14px 32px;
+    border-radius: 35px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(45deg, #ff0080, #ff8c00);
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 0, 128, 0.3);
+}
+
+.hero-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(255, 0, 128, 0.4);
+}
+
+
+/* Get Started Style */
+.btn-main {
+    background: linear-gradient(45deg, #ff0080, #ff8c00);
+}
+
+/* Upload Style */
+.upload-btn {
+    background: linear-gradient(45deg, #00cccc, #00ffcc);
+}
+
+.btn-main:hover,
+.upload-btn:hover {
+    transform: scale(1.05);
+}
+

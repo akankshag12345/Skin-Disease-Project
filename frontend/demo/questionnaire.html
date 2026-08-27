@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlowCare - Questionnaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="questionnaire-style.css">
+</head>
+<body>
+  <canvas id="particleCanvas"></canvas>
+
+  <div class="box">
+    <h2>Some Questions</h2>
+    <form id="questionnaireForm">
+      <div class="form-grid">
+
+        <!-- Age -->
+        <div class="input-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" min="15" max="75" required>
+        </div>
+
+       <div class="input-group">
+  <label for="userEmail">Confirm Email</label>
+  <input type="email" id="userEmail" required placeholder="Enter your registered email">
+</div>
+
+
+
+        <!-- Gender -->
+        <div class="input-group">
+          <label for="gender">Gender</label>
+          <select id="gender" required>
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- Skin Type -->
+        <div class="input-group">
+          <label for="skinType">Skin Type</label>
+          <select id="skinType" required>
+            <option value="">Select</option>
+            <option>Oily</option>
+            <option>Dry</option>
+            <option>Combination</option>
+            <option>Sensitive</option>
+            <option>Normal</option>
+          </select>
+        </div>
+
+        <!-- Main Concern -->
+        <div class="input-group">
+          <label for="concerns">Main Concern</label>
+          <select id="concerns" required>
+            <option value="">Select</option>
+            <option>Acne</option>
+            <option>Pigmentation</option>
+            <option>Chickenpox</option>
+            <option>Dyshidrotic Eczema</option>
+            <option>Nail Fungus</option>
+            <option>Ringworm</option>
+            <option>Seborrheic Keratosis</option>
+            <option>Vascular Lesion</option>
+          </select>
+        </div>
+
+        <!-- Marital Status -->
+        <div class="input-group">
+          <label for="marital">Marital Status</label>
+          <select id="marital" required>
+            <option value="">Select</option>
+            <option>Single</option>
+            <option>Married</option>
+            <option>Divorced</option>
+            <option>Widowed</option>
+          </select>
+        </div>
+
+        <!-- Addiction -->
+        <div class="input-group">
+          <label for="addiction">Addiction</label>
+          <select id="addiction" required>
+            <option value="">Select</option>
+            <option>None</option>
+            <option>Smoking</option>
+            <option>Alcohol</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- ✅ Sleeping Hours -->
+        <div class="input-group">
+          <label for="sleepingHours">Average Sleeping Hours</label>
+          <select id="sleepingHours" required>
+            <option value="">Select</option>
+            <option>Less than 5 hours</option>
+            <option>5 - 7 hours</option>
+            <option>7 - 9 hours</option>
+            <option>More than 9 hours</option>
+          </select>
+        </div>
+
+        <!-- ✅ Sun Exposure -->
+        <div class="input-group">
+          <label for="sunExposure">Daily Sun Exposure</label>
+          <select id="sunExposure" required>
+            <option value="">Select</option>
+            <option>Less than 30 minutes</option>
+            <option>30 minutes - 1 hour</option>
+            <option>1 - 2 hours</option>
+            <option>More than 2 hours</option>
+          </select>
+        </div>
+
+        <div class="input-group full-width">
+          <label for="imageUpload">Upload Skin Image for AI Analysis</label>
+          <input type="file" id="imageUpload" accept="image/*" required>
+          <small style="color: #ccc; font-size: 0.8rem;">Please upload a clear photo of the affected area.</small>
+        </div>
+        
+      <button type="submit">Get Recommendation</button>
+    </form>
+
+    <!-- Result Section -->
+    <div id="resultSection"></div>
+  </div>
+
+  <script src="questionnaire-script.js"></script>
+</body>
+</html>

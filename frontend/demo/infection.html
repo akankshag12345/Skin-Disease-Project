@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Voice Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+body {
+margin: 0;
+min-height: 100vh;
+font-family: 'Montserrat', 'Segoe UI', sans-serif;
+background: linear-gradient(135deg, #e0e7ff 0%, #f9fafc 100%);
+background-image: url('https://i.pinimg.com/736x/18/af/d0/18afd08767704ed53e3d18e4b00f7a23.jpg');
+background-repeat: no-repeat;
+background-position: center center;
+background-size: cover;
+background-attachment: fixed;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.main-container {
+display: flex;
+flex-wrap: wrap;
+gap: 48px;
+padding: 32px;
+background: rgba(255,255,255,0.85);
+border-radius: 32px;
+box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+backdrop-filter: blur(2px);
+}
+
+.girl-portrait {
+position: relative;
+width: 320px;
+height: 570px;
+flex-shrink: 0;
+filter: drop-shadow(0 8px 24px rgba(0,0,0,0.12));
+}
+
+.hair {
+position: absolute;
+width: 290px;
+height: 490px;
+background: linear-gradient(120deg, #2c2c2c 60%, #6d4c41 100%);
+border-radius: 150px 150px 80px 80px;
+top: -10px;
+left: 15px;
+z-index: -2;
+box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+.face {
+position: absolute;
+width: 170px;
+height: 210px;
+top: 90px;
+left: 75px;
+background: #ffe1d2;
+border-radius: 50% 50% 45% 45%;
+z-index: 1;
+box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.neck {
+position: absolute;
+width: 70px;
+height: 90px;
+top: 270px;
+left: 120px;
+background: #ffd1b3;
+border-radius: 20px;
+}
+.shoulders {
+position: absolute;
+width: 290px;
+height: 150px;
+top: 350px;
+left: 15px;
+background: linear-gradient(90deg, #ffb6b9 60%, #fae3d9 100%);
+border-radius: 80px 80px 0 0;
+z-index: -1;
+}
+
+.eyebrow {
+position: absolute;
+width: 50px;
+height: 8px;
+background: #2b2b2b;
+border-radius: 50%;
+top: 35px;
+}
+.eyebrow.left { left: 18px; transform: rotate(-8deg); }
+.eyebrow.right { right: 18px; transform: rotate(8deg); }
+
+.eye {
+position: absolute;
+width: 50px;
+height: 50px;
+background: #fff;
+border: 2px solid #333;
+border-radius: 50%;
+top: 65px;
+overflow: hidden;
+animation: blink 5s infinite;
+box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.eye.left { left: 15px; }
+.eye.right { right: 15px; }
+
+.iris {
+position: absolute;
+width: 30px;
+height: 30px;
+top: 12px;
+left: 12px;
+background: radial-gradient(circle at 50% 50%, #6ec1ff, #0077c9, #002244);
+border-radius: 50%;
+}
+.pupil {
+position: absolute;
+width: 12px;
+height: 12px;
+top: 9px;
+left: 9px;
+background: #000;
+border-radius: 50%;
+}
+.nose {
+position: absolute;
+width: 18px;
+height: 14px;
+top: 115px;
+left: 71px;
+background: #fbbfa4;
+border-radius: 50%;
+}
+.mouth {
+position: absolute;
+width: 70px;
+height: 35px;
+top: 155px;
+left: 45px;
+border-radius: 25% / 50%;
+background: linear-gradient(90deg, #a36d77 60%, #e57373 100%);
+box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.mouth.talking {
+animation: talk 0.3s infinite alternate;
+}
+.cheek {
+position: absolute;
+width: 35px;
+height: 25px;
+background: #ffb6c1;
+border-radius: 50%;
+top: 130px;
+opacity: 0.7;
+filter: blur(1px);
+}
+.cheek.left { left: 20px; }
+.cheek.right { right: 20px; }
+
+@keyframes blink {
+0%, 92%, 100% { transform: scaleY(1); }
+95% { transform: scaleY(0.1); }
+}
+@keyframes talk {
+from { transform: scaleY(0.4); }
+to { transform: scaleY(1); }
+}
+
+/* Chat */
+.assistant-container {
+background: linear-gradient(120deg, #f9fafc 80%, #e0e7ff 100%);
+border-radius: 20px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+padding: 36px 32px 32px 32px;
+width: 410px;
+display: flex;
+flex-direction: column;
+gap: 24px;
+border: 1px solid #e3e3e3;
+}
+
+.assistant-container h2 {
+font-family: 'Pacifico', cursive;
+font-size: 2.1rem;
+color: #0077c9;
+margin: 0 0 8px 0;
+text-align: center;
+letter-spacing: 1px;
+text-shadow: 0 2px 8px rgba(0,123,201,0.08);
+}
+
+.chat-box {
+border: 1px solid #e3e3e3;
+height: 260px;
+padding: 16px;
+overflow-y: auto;
+border-radius: 12px;
+background: #f7faff;
+display: flex;
+flex-direction: column;
+gap: 12px;
+font-size: 1.08rem;
+transition: box-shadow 0.2s;
+box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.chat-box div {
+padding: 10px 16px;
+border-radius: 14px;
+word-wrap: break-word;
+max-width: 80%;
+font-family: 'Montserrat', sans-serif;
+font-size: 1rem;
+box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.chat-box .user {
+align-self: flex-end;
+background: linear-gradient(90deg, #fff0f5 60%, #ffe1e9 100%);
+color: #c2185b;
+border-bottom-right-radius: 2px;
+}
+.chat-box .bot {
+align-self: flex-start;
+background: linear-gradient(90deg, #e6f3ff 60%, #e0e7ff 100%);
+color: #0077c9;
+border-bottom-left-radius: 2px;
+}
+
+.input-group {
+display: flex;
+gap: 10px;
+}
+.input-group input {
+flex-grow: 1;
+padding: 13px 14px;
+border: 1px solid #bfc9d1;
+border-radius: 10px;
+font-size: 1rem;
+font-family: 'Montserrat', sans-serif;
+background: #f7faff;
+transition: border-color 0.2s;
+}
+.input-group input:focus {
+border-color: #0077c9;
+outline: none;
+}
+.input-group button {
+padding: 13px 18px;
+border: none;
+background: linear-gradient(90deg, #0077c9 60%, #6ec1ff 100%);
+color: white;
+border-radius: 10px;
+cursor: pointer;
+font-size: 1.08rem;
+font-family: 'Montserrat', sans-serif;
+font-weight: 600;
+box-shadow: 0 2px 8px rgba(0,123,201,0.08);
+transition: background 0.2s, transform 0.1s;
+}
+.input-group button:hover {
+background: linear-gradient(90deg, #005fa3 60%, #4fa3d1 100%);
+transform: translateY(-2px) scale(1.04);
+}
+.input-group button:last-child {
+font-size: 1.2rem;
+background: linear-gradient(90deg, #ffb6b9 60%, #fae3d9 100%);
+color: #c2185b;
+}
+.input-group button:last-child:hover {
+background: linear-gradient(90deg, #fae3d9 60%, #ffb6b9 100%);
+color: #ad1457;
+}
+
+
+@media (max-width: 900px) {
+.main-container {
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 16px;
+}
+.assistant-container {
+  width: 98vw;
+  max-width: 430px;
+  padding: 24px 8px 20px 8px;
+}
+.girl-portrait {
+  width: 220px;
+  height: 390px;
+}
+}
+</style>
+</head>
+<body>
+<div class="main-container">
+    <div class="girl-portrait">
+        <div class="hair"></div>
+        <div class="face">
+            <div class="eyebrow left"></div>
+            <div class="eyebrow right"></div>
+            <div class="eye left"><div class="iris"><div class="pupil"></div></div></div>
+            <div class="eye right"><div class="iris"><div class="pupil"></div></div></div>
+            <div class="nose"></div>
+            <div class="mouth" id="mouth"></div>
+            <div class="cheek left"></div>
+            <div class="cheek right"></div>
+        </div>
+        <div class="neck"></div>
+        <div class="shoulders"></div>
+    </div>
+
+    <div class="assistant-container">
+        <h2>AI Voice Assistant</h2>
+        <div class="chat-box" id="messages"></div>
+        <div class="input-group">
+            <input type="text" id="userInput" placeholder="Say or type something..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+            <button onclick="startListening()">🎤</button>
+        </div>
+
+        <!-- ✅ Streamlit button added here -->
+        <div style="margin-top: 20px; text-align: center;">
+            <button onclick="openStreamlit()" style="padding: 12px 20px; font-size: 1rem; border-radius: 10px; cursor: pointer; background: linear-gradient(90deg, #0077c9 60%, #6ec1ff 100%); color: white; border: none;">
+                🩺 Open Skin AI Detector
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+
+// 1. Recommendations Logic (Correct 10 Classes)
+// ---------------------------
+function getRecommendations(prediction) {
+    let recs = { natural: "Keep area clean.", ingredients: "Consult Expert.", professional: "See a doctor." };
+    
+    const recommendationsMap = {
+        "00_Random_Images": { n: "Not skin.", i: "N/A", p: "Upload clear skin photo." },
+        "Acne": { n: "Wash face twice with mild cleanser.", i: "Salicylic acid/Benzoyl peroxide.", p: "Consult dermatologist if persistent." },
+        "Chickenpox": { n: "Oatmeal baths, keep nails short.", i: "Calamine lotion.", p: "See doctor if breathing is hard." },
+        "Dyshidrotic Eczema": { n: "Cold compresses.", i: "Ceramide moisturizers.", p: "Avoid nickel contact." },
+        "Nail Fungus": { n: "Keep nails short and dry.", i: "Antifungal lacquer.", p: "Podiatrist checkup needed." },
+        "Normal skin": { n: "Stay hydrated.", i: "SPF 30+ Sunscreen.", p: "Annual checkup." },
+        "Ringworm": { n: "Don't share towels.", i: "Clotrimazole cream.", p: "Doctor if no change in 2 weeks." },
+        "Seborrheic Keratosis": { n: "Harmless spots.", i: "N/A", p: "Doctor if bleeding." },
+        "Squamous Cell Carcinoma": { n: "Avoid sun.", i: "N/A", p: "CRITICAL: See Doctor ASAP!" },
+        "Vascular Lesion": { n: "Avoid scrubbing.", i: "N/A", p: "Consult specialist." }
+    };
+
+    if (recommendationsMap[prediction]) {
+        recs = {
+            natural: recommendationsMap[prediction].n,
+            ingredients: recommendationsMap[prediction].i,
+            professional: recommendationsMap[prediction].p
+        };
+    }
+    return recs;
+}
+
+  // ---------------------------
+  // Open Streamlit Skin AI Detector
+  // ---------------------------
+
+// ---------------------------
+// 2. Open Skin AI Detector (Flask Integration)
+// ---------------------------
+async function openStreamlit() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    
+    fileInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Chatbot madhe kontahi message dakhvu naka, direct process kara
+        const formData = new FormData();
+        formData.append("image", file);
+
+        try {
+            const response = await fetch("http://localhost:8000/predict", {
+                method: "POST",
+                body: formData
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                // Fakt Prediction ani Confidence save kara
+const finalResults = {
+    prediction: data.prediction,
+    confidence: data.confidence,
+    isDirectAI: true   // 🔥 IMPORTANT
+};
+
+localStorage.setItem("skincareAIResults", JSON.stringify(finalResults));
+                
+                // Direct result page var ja
+                window.location.href = "result.html";
+            } else {
+                alert("Error: " + data.prediction);
+            }
+        } catch (error) {
+            alert("Server Offline! Please start app.py");
+        }
+    };
+    fileInput.click();
+}
+
+
+
+// ---------------------------
+// 3. Chatbot Logic
+// ---------------------------
+const mouth = document.getElementById("mouth");
+const messagesContainer = document.getElementById("messages");
+const synth = window.speechSynthesis;
+
+function speak(text) {
+    if (!("speechSynthesis" in window)) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "en-IN";
+    utter.onstart = () => mouth.classList.add("talking");
+    utter.onend = () => mouth.classList.remove("talking");
+    synth.cancel();
+    synth.speak(utter);
+}
+
+function addMessage(msg, sender) {
+    const div = document.createElement("div");
+    div.textContent = msg;
+    div.className = sender;
+    messagesContainer.appendChild(div);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const text = input.value.trim();
+    if (!text) return;
+    addMessage(text, "user");
+    respondToUser(text);
+    input.value = "";
+}
+
+
+// 🎤 Recognition start
+function startListening() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return alert("Browser not supported.");
+    const recog = new SR();
+    recog.lang = "en-IN";
+    recog.start();
+    recog.onresult = e => {
+        const text = e.results[0][0].transcript;
+        addMessage(text, "user");
+        respondToUser(text);
+    };
+}
+
+window.onload = () => {
+    const welcome = "Hi! I am your Skin AI Assistant. Ask me to open the detector!";
+    addMessage(welcome, "bot");
+    speak(welcome);
+};
+
+
+  
+  // ---------------------------
+  // Respond to User
+  // ---------------------------
+function respondToUser(input) {
+    input = input.toLowerCase().trim();
+
+    // Regex for conditions
+    const acneRegex = /\b(acne|pimple|zit)\b/;
+    const fungalRegex = /\b(ringworm|fungal|infection)\b/;
+    const eczemaRegex = /\b(eczema|dry skin)\b/;
+
+    let response = "";
+
+    if (acneRegex.test(input)) {
+        response = "Acne is common. Keep your skin clean, avoid touching your face, and use gentle skincare.";
+        // ithe openStreamlit() call karu naka
+    } 
+    else if (fungalRegex.test(input)) {
+        response = "Fungal infections like ringworm need a dry environment. Use antifungal creams and keep the area clean.";
+    }
+    else if (eczemaRegex.test(input)) {
+        response = "Eczema causes redness and itchiness. Moisturize frequently and avoid harsh soaps.";
+    }
+    else {
+        response = "I am here to help with skin tips! Ask me about acne, eczema, or fungal care.";
+    }
+
+    addMessage(response, 'bot');
+    speak(response);
+}
+  // ---------------------------
+  // Welcome Message
+  // ---------------------------
+  window.onload = () => {
+    const welcome = "Hi! I am your Skin AI Assistant. I can detect skin infections and give skincare advice. Ask me anything!";
+    addMessage(": " + welcome, "bot");
+    speak(welcome);
+  };
+</script>
+
+
+
+</body>
+</html>

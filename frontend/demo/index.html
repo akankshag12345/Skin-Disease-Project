@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skincare Solutions - Skinnova</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- JS -->
+  <script defer src="script.js"></script>
+</head>
+<body>
+
+
+  <!-- PARTICLE CANVAS -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-logo">Skinnova</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="login.html" class="nav-login">Sign In</a></li>
+    </ul>
+  </nav>
+
+  <section id="home" class="hero-section reveal">
+    <div class="hero-content">
+      <h1 class="gradient-text">SUITABLE FOR ALL SKIN ISSUES</h1>
+      <p>Get the personalized Skincare solutions that you need for healthy skin</p>
+      
+      <!-- Hero Buttons -->
+      <div class="hero-buttons">
+        <a href="infection.html" class="hero-btn primary-btn ripple">AI Skin Analysis</a>
+        <a href="camera.html" class="hero-btn ripple">
+        📷 Capture Skin Image
+        </a>
+      </div>
+      <p id="result"></p>
+    </div>
+    
+    <div class="hero-image">
+      <img src="homepage.jpg" alt="Skincare Hero Image">
+    </div>
+  </section>
+
+
+  <!-- SERVICES -->
+<section id="services" class="services-section reveal">
+  <h2>Our Services</h2>
+  <p class="services-text">
+    We provide personalized skincare solutions for every skin type and concern. From treating acne, pimples, dark circles, and pigmentation to reducing wrinkles and soothing sensitive skin, our expert-guided treatments combine natural remedies, effective ingredients, and professional care to help your skin look and feel its best.
+  </p>
+</section>
+
+
+  <!-- SOLUTIONS -->
+  <section id="solutions" class="solutions-section reveal">
+    <h2>We Provide Solutions To</h2>
+    <div class="solution-cards">
+      <div class="card">
+        <img src="pimples.jpg" alt="Pimples">
+        <span>Pimples</span>
+      </div>
+      <div class="card">
+        <img src="acne.jpg" alt="Acne">
+        <span>Acne</span>
+      </div>
+      <div class="card">
+        <img src="dark circles.jpg" alt="Dark Circles">
+        
+        <span>Dark Circles</span>
+      </div>
+      <div class="card">
+        <img src="pigmentation.jpg" alt="Pigmentation">
+        <span>Pigmentation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section reveal">
+    <p>"Because Your Skin Deserves Care That’s As Unique As You Are"</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section reveal">
+    <h2>Contact Us</h2>
+  <form class="contact-form" id="contactForm">
+  <input type="text" id="contactName" placeholder="Your Name" required>
+  <input type="email" id="contactEmail" placeholder="Your Email" required>
+  <textarea id="contactMessage" placeholder="Your Message..." rows="5" required></textarea>
+  <button type="submit" class="ripple">Send Message</button>
+</form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer reveal">
+    <h2>About Us</h2>
+    <p>Skinnova is dedicated to helping you take better care of your skin. Our experts provide personalized skincare solutions tailored to your unique needs.</p>
+    <p>&copy; 2025 Skinnova. All Rights Reserved.</p>
+  </footer>
+
+</body>
+
+<!-- Background Blobs -->
+<div class="background-blobs">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="blob blob4"></div>
+</div>
+
+</html>
