@@ -1,0 +1,364 @@
+╔════════════════════════════════════════════════════════════════╗
+║  🔧 COMPLETE TROUBLESHOOTING GUIDE 🔧                          ║
+╚════════════════════════════════════════════════════════════════╝
+
+This guide covers 99% of common issues you might encounter.
+
+═══════════════════════════════════════════════════════════════════
+
+📌 PORTS BEING USED:
+  - 5000: Express.js Backend (Authentication, Data APIs)
+  - 8000: Flask AI Service (Image prediction)
+  - 5500: Frontend Server (Web interface)
+
+All 3 MUST be free and accessible!
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "Cannot GET /api/login"
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: Trying to access backend on wrong port or Express not running
+
+SOLUTIONS:
+  ✓ Make sure Express is running: npm start (in backend folder)
+  ✓ Verify it's port 5000: Server running on port 5000
+  ✓ Check URL is: http://localhost:5000 (not 8000 or 5500)
+  ✓ Restart: Ctrl+C and npm start again
+
+VERIFICATION:
+  Open browser: http://localhost:5000/health
+  Should NOT work (no health endpoint on Express, which is OK)
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "Cannot POST /api/signup"
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: Express backend not responding
+
+SOLUTIONS:
+  ✓ Is Express running? (check terminal for "Server running on port 5000")
+  ✓ Is MongoDB connected? (check for "✅ Successfully connected")
+  ✓ Is .env file created with MONGO_URI?
+  ✓ Is MongoDB cluster online in Atlas?
+  ✓ Port 5000 already in use? (netstat -ano | findstr :5000)
+
+ACTIONS:
+  1. Stop Express (Ctrl+C)
+  2. Check backend/.env exists with valid MONGO_URI
+  3. Run: npm install
+  4. Run: npm start
+  5. Wait for both messages before testing
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "Model not loaded yet" or "Model still loading"
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: Flask is still loading the Keras model (normal on first run)
+
+SOLUTIONS:
+  ✓ WAIT 10-15 seconds and try again
+  ✓ Check Flask terminal for: "✅ Model loaded successfully!"
+  ✓ Once loaded, all predictions should work instantly
+  ✓ Model file is large (~200+ MB), first load takes time
+
+VERIFICATION:
+  Open browser: http://localhost:8000/health
+  Should show: {"status": "ok", "model_loaded": true, "classes": 10}
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "Connection refused" or "Cannot connect to server"
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: One or more required services not running
+
+CHECKLIST:
+  ☐ Is Express running on port 5000?
+    → Check for: "🚀 Server running on port 5000"
+  
+  ☐ Is Flask running on port 8000?
+    → Check for: "Running on http://0.0.0.0:8000"
+  
+  ☐ Is Frontend accessible on port 5500?
+    → Check for: "Serving HTTP on 0.0.0.0 port 5500"
+  
+  ☐ Are all 3 terminal windows still open?
+    → If closed, services stopped
+
+ACTION PLAN:
+  1. Check all 3 terminals are open and running
+  2. Check terminal output for any RED errors
+  3. If services crashed, look at error message
+  4. Restart the service that crashed
+  5. Try again
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "MongoDB connection error" or database not working
+═══════════════════════════════════════════════════════════════════
+
+CAUSES:
+  • MongoDB URI in .env is invalid
+  • MongoDB cluster is paused/offline
+  • IP not whitelisted in Atlas
+  • Username/password wrong
+
+FIXES:
+
+1. VERIFY .env FILE:
+   File should exist: backend/.env
+   Content should have: MONGO_URI=mongodb+srv://...
+   
+   If missing, copy from backend/.env.example and add credentials
+
+2. CHECK MONGODB URI:
+   Format: mongodb+srv://username:password@cluster.mongodb.net/?appName=name
+   
+   Replace:
+   - username: your MongoDB username
+   - password: your MongoDB password
+   - cluster: your cluster name (e.g., "project-cluster")
+   - name: your app name
+
+3. VERIFY MONGODB ATLAS:
+   Go to https://www.mongodb.com/cloud/atlas
+   
+   ✓ Cluster is running (should show "Active")
+   ✓ IP is whitelisted (Security → Network Access)
+   ✓ Database user exists (Security → Database Users)
+
+4. TEST CONNECTION:
+   In terminal, run:
+   mongosh "your_mongo_uri_here"
+   
+   If successful, MongoDB is accessible
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "ModuleNotFoundError: No module named 'flask'"
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: Python dependencies not installed
+
+SOLUTIONS:
+
+1. ACTIVATE VIRTUAL ENVIRONMENT:
+   cd backend
+   venv\Scripts\activate
+   (Should see (venv) at start of command line)
+
+2. INSTALL REQUIREMENTS:
+   pip install -r requirements.txt
+   
+   Wait for "Successfully installed..."
+
+3. VERIFY INSTALLATION:
+   python -c "import flask; print('Flask OK')"
+   python -c "import tensorflow; print('TensorFlow OK')"
+
+4. TRY AGAIN:
+   python app.py
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "TensorFlow/Keras not found"
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: Heavy ML libraries not installed properly
+
+SOLUTIONS:
+
+1. MAKE SURE YOU'RE IN CORRECT DIRECTORY:
+   cd backend
+
+2. ACTIVATE VENV:
+   venv\Scripts\activate
+
+3. REINSTALL TensorFlow:
+   pip uninstall tensorflow -y
+   pip install tensorflow==2.13.0
+   
+   (This may take 5-10 minutes, be patient!)
+
+4. RESTART PYTHON:
+   python app.py
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "Port 5000 already in use" or "Address already in use"
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: Another program is using the port
+
+SOLUTIONS FOR WINDOWS:
+
+1. FIND WHAT'S USING THE PORT:
+   netstat -ano | findstr :5000
+   
+   Returns: TCP ... :5000 ... LISTENING [PID]
+   Remember the PID number
+
+2. KILL THE PROCESS:
+   taskkill /PID [number] /F
+   
+   Replace [number] with the PID from step 1
+
+3. TRY AGAIN:
+   npm start (in backend)
+
+ALTERNATIVE:
+   Change port in server.js:
+   From: const PORT = 5000;
+   To:   const PORT = 5001;
+   
+   (But then change frontend URLs too!)
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: Image upload not working / "Cannot upload image"
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: Flask AI service not responding to image requests
+
+CHECKLIST:
+  ☐ Is Flask running? (Port 8000)
+  ☐ Did model finish loading? (Wait 10-15 sec on first run)
+  ☐ Is image file valid? (JPG, PNG, not corrupted)
+  ☐ Is file size < 10MB?
+  ☐ Are you uploading from right page?
+    (Homepage and Questionnaire both work)
+
+SOLUTIONS:
+  1. Verify Flask is running and model loaded
+  2. Try smaller image (~1-2 MB)
+  3. Try different image format (PNG vs JPG)
+  4. Check browser console (F12) for detailed error
+  5. Check Flask terminal for error message
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "Email already registered" on signup
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: Email already exists in database
+
+SOLUTIONS:
+  ✓ Use different email address
+  ✓ If you want to reuse email, go to MongoDB Atlas and delete user
+  ✓ Or use an email variation (test+1@example.com)
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: Forgot password / cannot login
+═══════════════════════════════════════════════════════════════════
+
+CURRENT LIMITATION:
+  No password recovery implemented yet
+
+WORKAROUND:
+  1. Go to MongoDB Atlas
+  2. Go to Database → Collections → users
+  3. Find the user record and delete it
+  4. Sign up again with same email
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: "CORS policy: Response to preflight request"
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: CORS not enabled or misconfigured
+
+SOLUTIONS:
+  ✓ Make sure flask-cors is installed:
+    pip install flask-cors==4.0.0
+  
+  ✓ Make sure CORS is enabled in app.py:
+    from flask_cors import CORS
+    CORS(app)
+  
+  ✓ Make sure CORS is enabled in server.js:
+    const cors = require('cors');
+    app.use(cors());
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: Blank page / nothing loads
+═══════════════════════════════════════════════════════════════════
+
+SOLUTIONS:
+  1. Clear browser cache:
+     Ctrl+Shift+Delete → Clear cache and cookies
+  
+  2. Try hard refresh:
+     Ctrl+Shift+R (or Cmd+Shift+R on Mac)
+  
+  3. Check browser console (F12):
+     Look for RED error messages
+  
+  4. Check if frontend server running:
+     http://localhost:5500 should load something
+  
+  5. Try incognito/private mode
+
+
+═══════════════════════════════════════════════════════════════════
+🚨 ERROR: After login, questionnaire page not loading email
+═══════════════════════════════════════════════════════════════════
+
+CAUSE: Email not saved to localStorage after login
+
+SOLUTIONS:
+  1. Check browser console: F12 → Application tab
+  2. Look for "userEmail" in Local Storage
+  3. If missing, logout and login again
+  4. Check login-script.js has:
+     localStorage.setItem('userEmail', email);
+
+
+═══════════════════════════════════════════════════════════════════
+🆘 STILL HAVING ISSUES?
+═══════════════════════════════════════════════════════════════════
+
+DEBUG CHECKLIST:
+  ☐ All 3 services running (3 terminal windows open)?
+  ☐ npm install completed in backend?
+  ☐ Python requirements installed?
+  ☐ .env file has valid MONGO_URI?
+  ☐ Browser console shows what specific error? (F12)
+  ☐ Terminal output shows what specific error?
+  ☐ Ports 5000, 8000, 5500 are free?
+  ☐ model10class.keras exists in backend/?
+
+IF STILL STUCK:
+  1. Screenshot the error
+  2. Screenshot browser console (F12)
+  3. Screenshot terminal errors
+  4. Send all screenshots for debugging
+
+
+═══════════════════════════════════════════════════════════════════
+✅ QUICK HEALTH CHECK
+═══════════════════════════════════════════════════════════════════
+
+Run these in your browser to verify everything:
+
+1. Backend Health:
+   http://localhost:5000/api/signup
+   Should show: "email and password" error
+   (This means backend OK!)
+
+2. AI Service Health:
+   http://localhost:8000/health
+   Should show: {"status": "ok", "model_loaded": true, ...}
+   (If model_loaded is false, wait 10-15 seconds)
+
+3. Frontend Health:
+   http://localhost:5500
+   Should show: Homepage with Skinnova logo
+   (If blank, check terminal for errors)
+
+
+═══════════════════════════════════════════════════════════════════
