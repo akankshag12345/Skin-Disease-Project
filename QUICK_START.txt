@@ -1,0 +1,194 @@
+╔════════════════════════════════════════════════════════════════╗
+║    🩺 SKIN DISEASE DETECTOR - QUICK START GUIDE 🩺            ║
+╚════════════════════════════════════════════════════════════════╝
+
+⚡ WEB-BASED STARTUP (Recommended - All in Browser):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. SETUP:
+   • Extract all files to your computer
+   • Open command prompt in: FINAL YEAR PROJECT/backend
+   • Run: npm install (install Node packages)
+   • Run in another terminal: pip install -r requirements.txt
+
+2. CONFIGURE DATABASE:
+   • Open backend/.env
+   • Add your MongoDB connection:
+     MONGO_URI=mongodb+srv://user:password@cluster.mongodb.net/?appName=name
+
+3. START EVERYTHING:
+   • cd backend
+   • npm run control
+   
+   This opens the WEB CONTROL DASHBOARD automatically!
+
+4. ACCESS THE DASHBOARD:
+   • Browser opens: http://localhost:3000 (Control Dashboard)
+   • Automatically starts Express and Flask services
+   • View real-time logs from each service
+   • Click buttons to start/stop services
+   • Quick links to all important pages
+
+5. START USING THE APP:
+   • Click "Open Frontend" in dashboard OR
+   • Navigate to: http://localhost:5500
+   • Sign up, fill questionnaire, upload skin image
+   • Get AI prediction + recommendations!
+
+
+✅ THAT'S IT! Everything is controlled from browser! 
+
+
+📱 THREE WAYS TO RUN THE PROJECT:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+METHOD 1 - WEB CONTROL DASHBOARD (Easiest):
+  cd backend
+  npm run control
+  
+  Opens at: http://localhost:3000
+  Web interface to manage all services
+  View logs in browser
+
+
+METHOD 2 - MANUAL IN SEPARATE TERMINALS (Advanced):
+  Terminal 1 - Express Backend:
+    cd backend
+    npm start
+    Runs on: http://localhost:5000
+
+  Terminal 2 - Flask AI Service:
+    cd backend
+    python -m venv venv
+    venv\Scripts\activate
+    pip install -r requirements.txt
+    python app.py
+    Runs on: http://localhost:8000
+
+  Terminal 3 - Frontend:
+    cd frontend/demo
+    python -m http.server 5500
+    Runs on: http://localhost:5500
+
+
+METHOD 3 - PYTHON CONTROL SERVER (Terminal-based):
+  cd backend
+  python -m venv venv
+  venv\Scripts\activate
+  pip install -r requirements.txt
+  python app.py
+  
+  Then in another terminal:
+  cd backend
+  npm start
+
+
+🌐 ACCESS IN BROWSER AFTER RUNNING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CONTROL DASHBOARD:  http://localhost:3000    ← Manage services
+Frontend APP:       http://localhost:5500    ← User interface
+API Health:         http://localhost:5000    ← Express API
+AI Health:          http://localhost:8000/health  ← Flask service
+
+
+🎯 FIRST-TIME SETUP CHECKLIST:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+☐ Node.js installed? (node --version)
+☐ Python installed? (python --version)
+☐ In backend folder?
+☐ Ran npm install?
+☐ Have .env with MongoDB URI?
+☐ Run npm run control?
+☐ Dashboard opened at http://localhost:3000?
+☐ All services show green/healthy?
+☐ Frontend loads at http://localhost:5500?
+
+
+⚠️ COMMON ISSUES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "Cannot find module 'express'"
+   ✅ Run: npm install
+
+❌ "ModuleNotFoundError: flask"
+   ✅ Activate venv then: pip install -r requirements.txt
+
+❌ "Model not loaded yet"
+   ✅ Normal on first run (wait 10-15 seconds, check dashboard)
+
+❌ "MongoDB connection error"
+   ✅ Check .env file has correct MONGO_URI
+
+❌ Port already in use
+   ✅ Close other Node.js terminals or change port in code
+
+
+💡 CONTROL DASHBOARD FEATURES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Start/Stop Express Backend
+✓ Start/Stop Flask AI Service  
+✓ View real-time service logs
+✓ Check service health status
+✓ See running ports and URLs
+✓ Quick links to all pages
+✓ One-click start all services
+✓ Live status indicators
+
+
+📊 DASHBOARD LAYOUT:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Top Section:
+  ┌─────────────────┬─────────────────┬─────────────────┐
+  │ Express Backend │ Flask AI Service │  Frontend Server│
+  │  Port: 5000     │  Port: 8000      │  Port: 5500     │
+  │ [Start] [Stop]  │ [Start] [Stop]   │ [Open]          │
+  └─────────────────┴─────────────────┴─────────────────┘
+
+Middle Section:
+  [⚡ START ALL SERVICES] (Auto-starts 3 services)
+
+Bottom Section:
+  ┌──────────────────────┐  ┌──────────────────────┐
+  │ Express Logs         │  │ Flask Logs           │
+  │ (last 20 entries)    │  │ (last 20 entries)    │
+  └──────────────────────┘  └──────────────────────┘
+
+🔗 Quick Links:
+  [Home] [Sign Up] [Login] [API Test]
+
+
+🔄 SERVICE FLOW:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+USER BROWSER (Port 5500)
+    ↓
+Frontend (HTML/CSS/JS)
+    ↓
+Express API (Port 5000)  ←→  MongoDB Atlas
+    ↓
+User Data Saved
+    ↓
+Flask AI Service (Port 8000)
+    ↓
+Image Prediction
+    ↓
+Results Back to Frontend
+
+
+🎉 YOU'RE READY TO GO!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Run this ONE command and everything starts:
+
+    cd backend && npm run control
+
+Then visit: http://localhost:3000
+
+That's it! Control dashboard handles everything else.
+
+═══════════════════════════════════════════════════════════════════
+
